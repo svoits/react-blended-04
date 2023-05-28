@@ -18,7 +18,7 @@ import {
 export const BlogCard = ({
   name,
   postedAt,
-  poster,
+  poster="https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600",
   tag,
   title,
   description,
@@ -27,7 +27,7 @@ export const BlogCard = ({
   return (
     <Card>
       <CardHeader>
-        <CardPoster src={poster} alt={title} />
+        <CardPoster src="https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=600" alt={title} />
       </CardHeader>
       <CardBody>
         <Tag>{tag}</Tag>
