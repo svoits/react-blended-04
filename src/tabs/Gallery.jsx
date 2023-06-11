@@ -8,11 +8,12 @@ export class Gallery extends Component {
     images: [],
     query: '',
     page: 1,
+    isShownButton: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
-    if (prevState.query !== query) {
+    if (prevState.query !== query || prevState.page !== page) {
       this.loadImages(query, page);
     }
 
@@ -28,6 +29,7 @@ export class Gallery extends Component {
     const data = await ImageService.getImages(query, page);
     this.setState(prevState => ({
       images: [...prevState.images, ...data.photos],
+      isShownButton: true,
     }));
   };
 
@@ -37,8 +39,14 @@ export class Gallery extends Component {
     });
   };
 
+  handleClickButton = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }))}
+
+
   render() {
-    const { images } = this.state;
+    const { images, isShownButton } = this.state;
 
     return (
       <>
@@ -53,6 +61,7 @@ export class Gallery extends Component {
           ))}
         </Grid>
         <Text textAlign="center">Sorry. There are no images ... 😭</Text>
+        {isShownButton && <Button onClick={this.handleClickButton}>Load more</Button>}
       </>
     );
   }
