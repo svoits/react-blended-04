@@ -9,7 +9,7 @@ export class SearchForm extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   handleInputChange = e => {
