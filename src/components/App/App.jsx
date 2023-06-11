@@ -1,54 +1,35 @@
-import article from '../../data/article.json';
-import data from "data/data.json";
-import forbes from "data/forbes.json"
-import transactions from "data/transactions.json"
-import {
-  BlogCard,
-  Container,
-  Section,
-  Heading,
-  Statistics,
-  ForbesList,
-  CryptoHistory,
-} from 'components';
-
-
-const { name, postedAt, poster, tag, title, description, avatar } = article;
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import { Container, Header, Section, Text } from 'components';
+import { Gallery, Todos } from 'tabs';
 
 export const App = () => {
   return (
-    <Section>
-      <Container>
-        <Heading marginBottom="50px" textAlign="center">
-          Task 1
-        </Heading>
-        <BlogCard
-          poster={poster}
-          tag={tag}
-          title={title}
-          description={description}
-          name={name}
-          avatar={avatar}
-          postedAt={postedAt}
-        />
+    <>
+      <Header />
 
-        <Heading marginTop="50px" marginBottom="50px" textAlign="center">
-          Task 2
-        </Heading>
-        <Statistics title="Main statistic" stats={data} />
-        
+      <Section>
+        <Container>
+          <Tabs>
+            <TabList>
+              <Tab>
+                <Text>Gallery</Text>
+              </Tab>
+              <Tab>
+                <Text>Todos</Text>
+              </Tab>
+            </TabList>
 
-        <Heading marginTop="50px" marginBottom="50px" textAlign="center">
-          Task 3
-        </Heading>
-        <ForbesList list={forbes} />
+            <TabPanel>
+              <Gallery />
+            </TabPanel>
 
-        <Heading marginTop="50px" marginBottom="50px" textAlign="center">
-          Task 4
-        </Heading>
-        <CryptoHistory items={transactions}/>
-       
-      </Container>
-    </Section>
+            <TabPanel>
+              <Todos />
+            </TabPanel>
+          </Tabs>
+        </Container>
+      </Section>
+    </>
   );
 };
