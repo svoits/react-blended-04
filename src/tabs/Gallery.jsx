@@ -9,6 +9,9 @@ export class Gallery extends Component {
     query: '',
     page: 1,
     isShownButton: false,
+    isLoading: false,
+    isEmpty: false,
+    error: null
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -26,16 +29,35 @@ export class Gallery extends Component {
   // }
 
   loadImages = async (query, page) => {
-    const data = await ImageService.getImages(query, page);
+    this.setState({isLoading:true})
+    try {
+      const { page:currentPage, per_page,total_results, photos } = await ImageService.getImages(query, page);
+      
+      if (!photos.length) {
+        this.setState({ isEmpty: true })
+        return;
+      }
     this.setState(prevState => ({
-      images: [...prevState.images, ...data.photos],
-      isShownButton: true,
+      images: [...prevState.images, ...photos],
+      isShownButton: currentPage < Math.ceil(total_results / per_page),
     }));
+    } catch (error) {
+      this.setState({error: error.message})
+    } finally {
+      this.setState({isLoading:false})
+    }
+    
   };
 
   handleSubmit = query => {
     this.setState({
-      query,
+    query,
+    images: [],
+    page: 1,
+    isShownButton: false,
+    isEmpty: false,
+    error: null
+      
     });
   };
 
@@ -46,7 +68,7 @@ export class Gallery extends Component {
 
 
   render() {
-    const { images, isShownButton } = this.state;
+    const { images, isShownButton, isLoading, isEmpty, error} = this.state;
 
     return (
       <>
@@ -60,8 +82,11 @@ export class Gallery extends Component {
             </GridItem>
           ))}
         </Grid>
-        <Text textAlign="center">Sorry. There are no images ... 😭</Text>
+        {isEmpty && <Text textAlign="center">Sorry. There are no images ... 😭</Text>}
         {isShownButton && <Button onClick={this.handleClickButton}>Load more</Button>}
+        {isLoading && <Text textAlign="center">Loading ...</Text>}
+        {error && <Text textAlign="center">{error}</Text>}
+      
       </>
     );
   }
