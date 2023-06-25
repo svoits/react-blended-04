@@ -1,49 +1,31 @@
-import { Component } from 'react';
-
 import { FiSearch } from 'react-icons/fi';
-import { FormBtn, InputSearch, SearchFormStyled } from './SearchForm.styled';
+import { BtnSearch, Select, SearchFormStyled } from './SearchForm.styled';
 
-export class SearchForm extends Component {
-  state = {
-    query: '',
-  };
+const regions = [
+  { id: 'africa', value: 'africa', name: 'Africa' },
+  { id: 'america', value: 'america', name: 'America' },
+  { id: 'asia', value: 'asia', name: 'Asia' },
+  { id: 'europe', value: 'europe', name: 'Europe' },
+  { id: 'oceania', value: 'oceania', name: 'Oceania' },
+];
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log(this.state);
-  }
-
-  handleInputChange = e => {
-    const prevValue = this.state.query;
-    const nextValue = e.target.value;
-
-    if (prevValue !== nextValue) {
-      this.setState({ query: nextValue });
-    }
-  };
-
-  handleFormSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state.query);
-    this.setState({ query: '' });
-  };
-
-  render() {
-    const { query } = this.state;
-
-    return (
-      <SearchFormStyled onSubmit={this.handleFormSubmit}>
-        <FormBtn type="submit">
-          <FiSearch size="16px" />
-        </FormBtn>
-        <InputSearch
-          placeholder="What do you want to write?"
-          name="search"
-          required
-          autoFocus
-          value={query}
-          onChange={this.handleInputChange}
-        />
-      </SearchFormStyled>
-    );
-  }
-}
+export const SearchForm = () => {
+  return (
+    <SearchFormStyled>
+      <BtnSearch type="submit">
+        <FiSearch size="16px" />
+      </BtnSearch>
+      <Select aria-label="select" name="region" required>
+        <option selected disabled defaultValue="">
+          Select a region and press enter
+        </option>
+        {regions &&
+          regions.map(({ id, name, value }) => (
+            <option key={id} value={value}>
+              {name}
+            </option>
+          ))}
+      </Select>
+    </SearchFormStyled>
+  );
+};
