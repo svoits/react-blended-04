@@ -1,3 +1,4 @@
+import { useFetchSearch } from 'hooks/useFetchSearch';
 import {
   Container,
   SearchForm,
@@ -8,6 +9,7 @@ import {
 } from 'components';
 
 export const CountrySearch = () => {
+  const { countries, loading, error, handleChangeSearchParams } = useFetchSearch();
   return (
     <Section>
       <Container>
