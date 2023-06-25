@@ -9,11 +9,15 @@ import {
 } from 'components';
 
 export const CountrySearch = () => {
-  const { countries, loading, error, handleChangeSearchParams } = useFetchSearch();
+  const { countries, loading, error, handleChangeSearchParams } =
+    useFetchSearch();
   return (
     <Section>
       <Container>
-        <h2>CountrySearch</h2>
+        <SearchForm onSubmit={handleChangeSearchParams} />
+        {loading && <Loader />}
+        {error && <Heading>{error}</Heading>}
+        {countries.length > 0 && <CountryList countries={countries} />}
       </Container>
     </Section>
   );
