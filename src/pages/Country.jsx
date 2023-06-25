@@ -1,10 +1,14 @@
 import { Section, Container, CountryInfo, Loader } from 'components';
+import { useFetchCountry } from 'hooks/useFetchCountry';
 
 export const Country = () => {
+  const {country, error,loading} = useFetchCountry();
+  
   return (
     <Section>
       <Container>
-        <h2>Country</h2>
+        {loading && <Loader/>}
+        {error && <p>{error}</p>}
       </Container>
     </Section>
   );
