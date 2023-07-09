@@ -1,49 +1,79 @@
+import React, { Component, useState } from 'react';
+
 import { FiSearch } from 'react-icons/fi';
-import { BtnSearch, Select, SearchFormStyled } from './SearchForm.styled';
-import { useState } from 'react';
+import { FormBtn, InputSearch, SearchFormStyled } from './SearchForm.styled';
 
-const regions = [
-  { id: 'africa', value: 'africa', name: 'Africa' },
-  { id: 'america', value: 'america', name: 'America' },
-  { id: 'asia', value: 'asia', name: 'Asia' },
-  { id: 'europe', value: 'europe', name: 'Europe' },
-  { id: 'oceania', value: 'oceania', name: 'Oceania' },
-];
+export const SearchForm = () => {
+  const [query, setQuery] = useState('');
 
-export const SearchForm = ({ onSubmit }) => {
-  const [search, setSearch] = useState('');
-
-  const handleChange = event => {
-    setSearch(event.target.value);
+  const handleInput = e => {
+    setQuery(e.currentTarget.value);
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    onSubmit(search);
-    setSearch('');
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    // this.props.onSubmit(query);
+
+    setQuery('');
   };
 
   return (
     <SearchFormStyled onSubmit={handleSubmit}>
-      <BtnSearch type="submit">
+      <FormBtn type="submit">
         <FiSearch size="16px" />
-      </BtnSearch>
-      <Select
-        aria-label="select"
-        name="region"
+      </FormBtn>
+      <InputSearch
+        onChange={handleInput}
+        placeholder="What do you want to write?"
+        name="search"
         required
-        onChange={handleChange}
-      >
-        <option selected disabled defaultValue="">
-          Select a region and press enter
-        </option>
-        {regions &&
-          regions.map(({ id, name, value }) => (
-            <option key={id} value={value}>
-              {name}
-            </option>
-          ))}
-      </Select>
+        value={query}
+        autoFocus
+      />
     </SearchFormStyled>
   );
 };
+
+// export class SearchForm1 extends Component {
+//   state = {
+//     query: '',
+//   };
+
+//   handleInput = e => {
+//     this.setState({
+//       query: e.currentTarget.value,
+//     });
+//   };
+
+//   handleSubmit = e => {
+//     const { query } = this.state;
+
+//     e.preventDefault();
+
+//     this.props.onSubmit(query);
+
+//     this.setState({
+//       query: '',
+//     });
+//   };
+//   render() {
+//     const { query } = this.state;
+
+//     return (
+//       <SearchFormStyled onSubmit={this.handleSubmit}>
+//         <FormBtn type="submit">
+//           <FiSearch size="16px" />
+//         </FormBtn>
+//         <InputSearch
+//           onChange={this.handleInput}
+//           placeholder="What do you want to write?"
+//           name="search"
+//           required
+//           value={query}
+//           autoFocus
+//         />
+//       </SearchFormStyled>
+//     );
+//   }
+// }
