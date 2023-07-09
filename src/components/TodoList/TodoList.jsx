@@ -1,7 +1,10 @@
 import { Grid, GridItem, Text, Todo } from 'components';
+import { useSelector } from 'react-redux';
+import { getTodos } from 'redux/todoSlice';
 
 export const TodoList = () => {
-  const todos = [{ id: 5, text: 'kkjkjekj' }];
+  const todos = useSelector(getTodos);
+
   return (
     <>
       {todos.length === 0 && (

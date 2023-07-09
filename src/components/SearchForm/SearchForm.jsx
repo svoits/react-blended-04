@@ -1,10 +1,13 @@
 import React, { Component, useState } from 'react';
-
+import { nanoid } from 'nanoid';
 import { FiSearch } from 'react-icons/fi';
 import { FormBtn, InputSearch, SearchFormStyled } from './SearchForm.styled';
+import { useDispatch } from 'react-redux';
+import { addTodo } from 'redux/todoSlice';
 
 export const SearchForm = () => {
   const [query, setQuery] = useState('');
+  const dispatch = useDispatch();
 
   const handleInput = e => {
     setQuery(e.currentTarget.value);
@@ -13,7 +16,12 @@ export const SearchForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    // this.props.onSubmit(query);
+    // const todo = {
+    //   id: nanoid(),
+    //   text: query,
+    // };
+
+    dispatch(addTodo(query));
 
     setQuery('');
   };
