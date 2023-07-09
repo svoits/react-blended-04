@@ -23,33 +23,43 @@ const todoSlice = createSlice({
     },
     incrementLike(state, action) {
       state.todos = state.todos.map(todo => {
-        if(todo.id  === action.payload){
+        if (todo.id === action.payload) {
           return {
             ...todo,
-            likes: todo.likes+1,
-          }
-          
+            likes: todo.likes + 1,
+          };
         }
         return todo;
-      })
+      });
     },
     decrementLike(state, action) {
       state.todos = state.todos.map(todo => {
-        if(todo.id  === action.payload){
-          if(todo.likes === 0) return todo;
+        if (todo.id === action.payload) {
+          if (todo.likes === 0) return todo;
           return {
             ...todo,
-            likes: todo.likes-1,
-          }
-          
+            likes: todo.likes - 1,
+          };
         }
         return todo;
-      })
-    }
+      });
+    },
+    editTodo(state, { payload: { id, text } }) {
+      state.todos = state.todos.map(todo => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            text,
+          };
+        }
+        return todo;
+      });
+    },
   },
 });
 
-export const { addTodo, deleteTodo, incrementLike, decrementLike } = todoSlice.actions;
+export const { addTodo, deleteTodo, incrementLike, decrementLike, editTodo } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;
 
