@@ -65,4 +65,4 @@ export default todoSlice.reducer;
 
 // Selectors
 
-export const getTodos = state => state.todos;
+export const getTodos = state => state.todos.todos;

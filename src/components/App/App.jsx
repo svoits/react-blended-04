@@ -11,6 +11,7 @@ import {
   Todo,
 } from 'components';
 import { TodoList } from 'components/TodoList/TodoList';
+import { Filter } from 'components/Filter/Filter';
 
 export const App = () => {
   return (
@@ -19,6 +20,7 @@ export const App = () => {
       <Section>
         <Container>
           <SearchForm />
+          <Filter />
           <TodoList />
         </Container>
       </Section>
