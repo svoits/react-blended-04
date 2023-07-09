@@ -19,6 +19,7 @@ export const TodoList = () => {
                 id={todo.id}
                 text={todo.text}
                 counter={index + 1}
+                likes={todo.likes}
                 // onClick={this.deleteTodo}
               />
             </GridItem>
