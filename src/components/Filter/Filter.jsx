@@ -1,24 +1,20 @@
-import { InputSearch } from 'components/SearchForm/SearchForm.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { getFilter, updateFilter } from 'redux/filterSlice';
+import React from 'react';
+import { CiSearch } from 'react-icons/ci';
+import styles from './Filter.module.css';
 
 export const Filter = () => {
-  const filter = useSelector(getFilter);
-  const dispatch = useDispatch();
-
-  const handleInput = e => {
-    dispatch(updateFilter(e.target.value));
-  };
-
   return (
-    <InputSearch
-      onChange={handleInput}
-      placeholder="What do you want to write?"
-      name="search"
-      required
-      value={filter}
-      autoFocus
-      style={{ marginBottom: '50px' }}
-    />
+    <div className={styles.search}>
+      <div className={styles.searchWrapper}>
+        <CiSearch className={styles.searchIcon} />
+
+        <input
+          className={styles.searchInput}
+          type='text'
+          id='search'
+          placeholder='Search something..'
+        />
+      </div>
+    </div>
   );
 };

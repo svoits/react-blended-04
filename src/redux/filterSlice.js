@@ -1,21 +1,17 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = '';
+const initialState = {
+  filter: '',
+};
 
-const filterSlice = createSlice({
+export const filterSlice = createSlice({
   name: 'filter',
   initialState,
-  reducers: {
-    updateFilter(state, action) {
-      return action.payload;
-    },
-  },
+  reducers: {},
 });
 
-export const { updateFilter } = filterSlice.actions;
+export const {} = filterSlice.actions;
 
 export default filterSlice.reducer;
 
-// Selectors
-
-export const getFilter = state => state.filter;
+//Selectors

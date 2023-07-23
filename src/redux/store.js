@@ -1,37 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import rootReducer from './todoSlice';
-import filterReducer from './filterSlice';
-
-const persistConfig = {
-  key: 'todos',
-  version: 1,
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+import filterSlice from './filterSlice';
+import { commentApi } from './commentApi';
 
 export const store = configureStore({
   reducer: {
-    todos: persistedReducer,
-    filter: filterReducer,
+    filter: filterSlice,
+    [commentApi.reducerPath]: commentApi.reducer,
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware(),
+    commentApi.middleware,
+  ],
 });
-
-export let persistor = persistStore(store);
