@@ -9,6 +9,6 @@ export const Grid = ({ children }) => {
   );
 };
 
-Grid.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+// Grid.propTypes = {
+//   children: PropTypes.node.isRequired,
+// };
