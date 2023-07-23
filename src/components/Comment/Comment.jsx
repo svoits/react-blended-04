@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { TiThumbsUp, TiThumbsDown } from 'react-icons/ti';
 import { formatDateToNow } from '../../helpers/formatDateToNow';
 import { Button } from '../Button/Button';
-
+import { useDeleteCommentMutation } from '../../redux/commentApi';
 export const Comment = ({
   createdAt,
   content,
@@ -14,6 +14,7 @@ export const Comment = ({
   thumbsDown,
   id,
 }) => {
+  const [deleteComment, { isLoading, isError, isSuccess }] = useDeleteCommentMutation();
   return (
     <li className={styles.card}>
       <img className={styles.avatar} src={avatar} alt={author} />
@@ -38,6 +39,7 @@ export const Comment = ({
             <Button counter={thumbsDown} role='thumbsDown' id={id}>
               <TiThumbsDown className={styles.icon} />
             </Button>
+            <button type='button' onClick={(()=>{deleteComment(id)})}>Delete Comment</button>
           </div>
         </div>
       </div>
